@@ -34,9 +34,13 @@ define('WP_MAX_MEMORY_LIMIT', $wp_max_memory_limit );
 
 // ** Database settings - You can get this info from your web host ** //
 $connectstr_dbhost = getenv('DATABASE_HOST');
+error_log(print_r($connectstr_dbhost, TRUE));
 $connectstr_dbname = getenv('DATABASE_NAME');
+error_log(print_r($connectstr_dbname, TRUE));
 $connectstr_dbusername = getenv('DATABASE_USERNAME');
+error_log(print_r($connectstr_dbusername, TRUE));
 $connectstr_dbpassword = getenv('DATABASE_PASSWORD');
+error_log(print_r($connectstr_dbpassword, TRUE));
 
 // Using managed identity to fetch MySQL access token
 if (strtolower(getenv('ENABLE_MYSQL_MANAGED_IDENTITY')) === 'true') {
@@ -47,6 +51,8 @@ if (strtolower(getenv('ENABLE_MYSQL_MANAGED_IDENTITY')) === 'true') {
 		} else {
 			$connectstr_dbpassword = EntraID_Database_Token_Utilities::getOrUpdateAccessTokenFromCache();
 		}
+error_log(print_r($connectstr_dbpassword, TRUE));
+
 	} catch (Exception $e) {
 		// An empty string displays a 502 HTTP error page rather than a database connection error page. So, using a dummy string instead.
 		$connectstr_dbpassword = '<dummy-value>';
